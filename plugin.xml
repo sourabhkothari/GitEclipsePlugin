@@ -17,14 +17,46 @@
          </menu>
          <action
                label="&amp;Sample Action"
-               icon="icons/sample.gif"
+               icon="icons/gitIcon.jpg"
                class="com.psl.git.actions.GitValidationAction"
-               tooltip="Hello, Eclipse world"
+               tooltip="Git Repo"
                menubarPath="sampleMenu/sampleGroup"
                toolbarPath="sampleGroup"
                id="com.psl.git.actions.GitValidationAction">
          </action>
       </actionSet>
+   </extension>
+    <extension
+         point="org.eclipse.ui.views">
+      <category
+            name="Sample Category"
+            id="PluginUI">
+      </category>
+      <view
+            name="Git Repo"
+            icon="icons/gitIcon.jpg"
+            category="PluginUI"
+            class="com.psl.git.actions.FileExplorer"
+            id="com.psl.git.actions.FileExplorer">
+      </view>
+   </extension>
+   <extension
+         point="org.eclipse.ui.perspectiveExtensions">
+      <perspectiveExtension
+            targetID="org.eclipse.jdt.ui.JavaPerspective">
+         <view
+               ratio="0.5"
+               relative="org.eclipse.ui.views.ProblemView"
+               relationship="right"
+               id="pluginui.views.PluginUI">
+         </view>
+      </perspectiveExtension>
+   </extension>
+   <extension
+         point="org.eclipse.help.contexts">
+      <contexts
+            file="contexts.xml">
+      </contexts>
    </extension>
 
 </plugin>

@@ -10,6 +10,8 @@ import com.psl.git.service.GitService;
 
 /*this is a Swing based listeners.
  need to convert to SWT
+ 
+ Note : currently not using in this project
 */
 
 public class OnTreeExpandListener implements TreeWillExpandListener {
@@ -37,7 +39,7 @@ public class OnTreeExpandListener implements TreeWillExpandListener {
 			RepositoryFile file = (RepositoryFile) node.getUserObject();
 			if (!file.isExpanded()) {
 				gitService.createSubTree(userName, password,
-						file.getFileHtmlPath(), node);
+						file.getFileHtmlPath());
 				file.setExpanded(true);
 			}
 		}

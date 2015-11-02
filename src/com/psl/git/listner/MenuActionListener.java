@@ -9,10 +9,11 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import com.psl.git.model.RepositoryFile;
 import com.psl.git.service.GitService;
 
-
 /*this is a Swing based listeners.
-	need to convert to SWT
-*/
+ need to convert to SWT
+ 
+ Note : currently not using in this project
+ */
 
 public class MenuActionListener implements ActionListener {
 
@@ -42,12 +43,8 @@ public class MenuActionListener implements ActionListener {
 		}
 		if (e.getActionCommand().equals("CheckOut")) {
 			System.out.println("CheckOut starts....");
-			RepositoryFile file = (RepositoryFile)node.getUserObject();
-			try {
-				gitService.checkOutRepositoryFiles(userName, password, file);
-			} catch (InterruptedException e1) {
-				e1.printStackTrace();
-			}
+			RepositoryFile file = (RepositoryFile) node.getUserObject();
+			gitService.checkOutRepositoryFiles(userName, password, file);
 			System.out.println("check out finish.....");
 		}
 		if (e.getActionCommand().equals("Compare")) {

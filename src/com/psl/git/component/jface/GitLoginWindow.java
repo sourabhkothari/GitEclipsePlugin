@@ -24,7 +24,7 @@ public class GitLoginWindow extends Dialog {
 	private Text txtUrl;
 	private Text txtUser;
 	private Text txtPassword;
-	private String url = "";
+	private String url = "https://github.com/nikhildongre/PSLEclipsePlugIn";
 	private String user = "";
 	private String password = "";
 	Button loginButton = null;

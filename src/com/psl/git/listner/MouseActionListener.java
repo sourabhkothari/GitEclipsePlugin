@@ -16,6 +16,8 @@ import com.psl.git.util.GitConstants;
 
 /*this is a Swing based listeners.
  need to convert to SWT
+ 
+ currently not using in this project
 */
 
 public class MouseActionListener extends MouseAdapter {

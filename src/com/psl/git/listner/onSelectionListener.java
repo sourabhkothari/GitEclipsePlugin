@@ -12,6 +12,8 @@ import com.psl.git.util.GitConstants;
 
 /*this is a Swing based listeners.
 need to convert to SWT
+
+Note : currently not using in this project
 */
 
 public class onSelectionListener implements TreeSelectionListener {

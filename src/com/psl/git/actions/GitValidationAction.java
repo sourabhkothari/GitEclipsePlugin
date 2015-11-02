@@ -35,7 +35,7 @@ public class GitValidationAction implements IWorkbenchWindowActionDelegate {
 	public void run(IAction action) {
 
 		shell = new Shell();
-		shell.setText("Login Page");
+		shell.setText("Git Repository");
 		GitLoginWindow dialog = new GitLoginWindow(shell);
 		dialog.open();
 /*		if (dialog.open() == Window.OK) {
