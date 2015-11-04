@@ -4,22 +4,15 @@ import java.io.File;
 import java.io.PrintWriter;
 
 import com.psl.git.model.RepositoryFile;
-
+import com.psl.git.util.CommonGitUtils;
 
 public class FileHelper {
 
-	String LOCAL_REPOSITORY = "C:\\Users\\sourabh_kothari\\Desktop\\";
-
-	public void createDirecory(RepositoryFile file) {
+	public void createDirecory(RepositoryFile file, String relativeRootDir) {
 		String fileName = null;
-		if (file != null
-				&& (file.getRelativePath() == null || file.getRelativePath()
-						.isEmpty())) {
-			fileName = LOCAL_REPOSITORY + "\\" + file.getFileName();
-		} else {
-			fileName = LOCAL_REPOSITORY + "\\" + file.getRelativePath() + "\\"
-					+ file.getFileName();
-		}
+		fileName = CommonGitUtils.getRelativeDirectoryPath(relativeRootDir,
+				file);
+		System.out.println("creating Dir ::: " + fileName);
 		File newFile = new File(fileName);
 		try {
 			newFile.mkdir();
@@ -27,22 +20,13 @@ public class FileHelper {
 			System.out.println("Exception in creating directory : "
 					+ e.getMessage());
 		}
-		if(file.isRootFile()){
-			LOCAL_REPOSITORY = LOCAL_REPOSITORY  + file.getFileName();
-		}
 	}
 
-	public void createFile(RepositoryFile file) {
+	public void createFile(RepositoryFile file, String relativeRootDir) {
 		String fileName = null;
-
-		if (file != null
-				&& (file.getRelativePath() == null || file.getRelativePath()
-						.isEmpty())) {
-			fileName = LOCAL_REPOSITORY + "\\" + file.getFileName();
-		} else {
-			fileName = LOCAL_REPOSITORY + "\\" + file.getRelativePath() + "\\"
-					+ file.getFileName();
-		}
+		fileName = CommonGitUtils.getRelativeDirectoryPath(relativeRootDir,
+				file);
+		System.out.println("creating File ::: " + fileName);
 		File newFile = new File(fileName);
 		PrintWriter out = null;
 		try {

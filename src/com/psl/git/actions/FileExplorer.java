@@ -34,11 +34,6 @@ import com.psl.git.util.GitConstants;
 
 public class FileExplorer extends ViewPart {
 
-	/**
-	 * The ID of the view as specified by the extension.
-	 */
-	public static final String ID = "com.psl.git.actions.FileExplorer";
-
 	private GitService gitService = new GitService();
 	public static final int COLUMN_ELEMENT = 0;
 	public static final int COLUMN_NUMBER = 1;
@@ -70,19 +65,15 @@ public class FileExplorer extends ViewPart {
 		// sorter.addColumn(column0, COLUMN_ELEMENT);
 		tree.addListener(SWT.Expand, new Listener() {
 			public void handleEvent(Event e) {
-				System.out.println("directory Expanding ={" + e.item.getData()
-						+ "}");
 			}
 		});
 		tree.addListener(SWT.Selection, new Listener() {
 			public void handleEvent(Event e) {
-				System.out.println("selected ={" + e.item.getData() + "}");
 				RepositoryFile file = (RepositoryFile) e.item.getData();
 				if (GitConstants.FILE.equals(file.getFileOrDirectory())) {
 					IEditorDescriptor desc = PlatformUI.getWorkbench()
 							.getEditorRegistry()
 							.getDefaultEditor(file.getFileName());
-					System.out.println(desc.getId());
 					IStorage storage = new StringStorage(file.getFileContent(),
 							file.getFileName());
 					IStorageEditorInput input = new StringInput(storage);
@@ -91,7 +82,9 @@ public class FileExplorer extends ViewPart {
 					if (page != null)
 						try {
 							if (desc.getId() != null
-									&& desc.getId().contains("MavenPomEditor")) { // not
+									&& desc.getId().contains(
+											GitConstants.POM_EDITOR_PLUGIN_KEY)) { 
+								// not
 								// able
 								// to
 								// resolve
@@ -103,7 +96,7 @@ public class FileExplorer extends ViewPart {
 								// so opening pom.xml in XMLMultiPageEditorPart
 								// manually
 								page.openEditor(input,
-										"org.eclipse.wst.xml.ui.internal.tabletree.XMLMultiPageEditorPart");
+										GitConstants.XML_EDITOR_PLUGIN_ID);
 							}
 							page.openEditor(input, desc.getId());
 						} catch (Exception e1) {
@@ -115,7 +108,6 @@ public class FileExplorer extends ViewPart {
 		treeviewer = new TreeViewer(tree);
 		treeviewer.setContentProvider(new TreeContentProvider());
 		treeviewer.setLabelProvider(new TreeLabelProvider());
-		System.out.println("createPartControl");
 	}
 
 	public void refreshViewer(User user) {
@@ -164,16 +156,14 @@ public class FileExplorer extends ViewPart {
 				}
 
 				if (treeviewer.getSelection() instanceof IStructuredSelection) {
-						Action action = new Action() {
+					Action action = new Action() {
 
 						public void run() {
-							RepositoryFile file = (RepositoryFile)((IStructuredSelection) treeviewer
+							RepositoryFile file = (RepositoryFile) ((IStructuredSelection) treeviewer
 									.getSelection()).toList().get(0);
-								System.out.println("new html path : "
-										+ file
-										.getFileHtmlPath());
-								gitService.checkOutRepositoryFiles("sourabhkothari", "willpower@123", file);
-							}
+							gitService.checkOutRepositoryFiles(
+									"sourabhkothari", "willpower@123", file);
+						}
 					};
 					action.setText("Check Out");
 					manager.add(action);
@@ -181,12 +171,13 @@ public class FileExplorer extends ViewPart {
 					Action testMenuAction = new Action() {
 
 						public void run() {
+							//can implement other menu stuff like check in/compare etc.
 							System.out
 							.println("inside testMenuAction...its for test only");
 						}
 					};
 
-					testMenuAction.setText("Don't Select Me");
+					testMenuAction.setText("Don't Select Me - I am not implemented yet");
 					manager.add(testMenuAction);
 
 				}

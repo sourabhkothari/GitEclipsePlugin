@@ -18,13 +18,14 @@ import org.eclipse.swt.widgets.Text;
 
 import com.psl.git.service.GitService;
 import com.psl.git.util.CommonGitUtils;
+import com.psl.git.util.GitConstants;
 
 public class GitLoginWindow extends Dialog {
 	private GitService gitService = new GitService();
 	private Text txtUrl;
 	private Text txtUser;
 	private Text txtPassword;
-	private String url = "https://github.com/nikhildongre/PSLEclipsePlugIn";
+	private String url = GitConstants.GIT_ROOT;
 	private String user = "";
 	private String password = "";
 	Button loginButton = null;
@@ -133,7 +134,8 @@ public class GitLoginWindow extends Dialog {
 		url = txtUrl.getText();
 		user = txtUser.getText();
 		password = txtPassword.getText();
-		System.out.println(" url "+ url + " user " + user + "password " + password);
+		System.out.println(" url " + url + " user " + user + "password "
+				+ password);
 		super.okPressed();
 		if (validateUserEntry()) {
 			System.out.println("valid");
@@ -172,7 +174,8 @@ public class GitLoginWindow extends Dialog {
 
 	private boolean validateUserEntry() {
 
-		if (CommonGitUtils.isEmpty(getUrl()) || CommonGitUtils.isEmpty(getUser())
+		if (CommonGitUtils.isEmpty(getUrl())
+				|| CommonGitUtils.isEmpty(getUser())
 				|| CommonGitUtils.isEmpty(getPassword())) {
 
 			MessageDialog.openError(parentShell, "Error",

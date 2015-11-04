@@ -38,13 +38,12 @@ public class GitValidationAction implements IWorkbenchWindowActionDelegate {
 		shell.setText("Git Repository");
 		GitLoginWindow dialog = new GitLoginWindow(shell);
 		dialog.open();
-/*		if (dialog.open() == Window.OK) {
-			System.out.println("window ok");
-			
-		}*/
+		/*
+		 * if (dialog.open() == Window.OK) { System.out.println("window ok");
+		 * 
+		 * }
+		 */
 	}
-
-	
 
 	/**
 	 * Selection in the workbench has been changed. We can change the state of

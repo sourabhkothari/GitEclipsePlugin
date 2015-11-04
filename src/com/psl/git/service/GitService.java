@@ -14,21 +14,20 @@ public class GitService {
 	GitHelper gitHelper = new GitHelper();
 	ExplorerHelper explorerHelper = new ExplorerHelper();
 	FileHelper fileHelper = new FileHelper();
-	int fileCount = 0;
 
 	public void validateGitUser(String path, String userName, String password) {
-		//connect to GIT Service 
-		//get JSON response , 
-		//createGitExplorer()
+		// connect to GIT Service
+		// get JSON response ,
+		// createGitExplorer()
 		User user = gitHelper.getGitFiles(path, userName, password, true);
 		System.out.println(user);
 		System.out.println(user.getRepositoryFiles());
 		explorerHelper.openGitFileExplorer(user);
 	}
-	
+
 	public void openFileEditor(RepositoryFile file) {
-		//get content , fileName
-		//open Editor
+		// get content , fileName
+		// open Editor
 	}
 
 	public User createSubTree(String userName, String password, String path) {
@@ -39,38 +38,37 @@ public class GitService {
 
 	public void checkOutRepositoryFiles(String userName, String password,
 			RepositoryFile file) {
-		//download files to a specific location
+		// download files to a specific location
+		System.out.println("::::::::::::  -- check out starts --  ::::::::::");
 		if (GitConstants.FILE.equals(file.getFileOrDirectory())) {
-			createFile(file);
+			fileHelper.createFile(file, null);
 		} else {
-			createDirecory(file);
-			downloadRepositoryFiles(userName, password, file.getFileHtmlPath());
+			fileHelper.createDirecory(file, null);
+			if (file.isRootFile()) {
+				downloadRepositoryFiles(userName, password,
+						file.getFileHtmlPath(), "");
+			} else {
+				downloadRepositoryFiles(userName, password,
+						file.getFileHtmlPath(), file.getRelativePath());
+			}
 		}
+		System.out
+		.println("::::::::::::  -- check out completes --  ::::::::::");
 	}
 
-
 	public void downloadRepositoryFiles(String userName, String password,
-			String path){
+			String path, String relativeRootDir) {
 		User user = gitHelper.getGitFiles(path, userName, password, false);
 		List<RepositoryFile> repositoryFiles = user.getRepositoryFiles();
 		for (RepositoryFile file : repositoryFiles) {
 			if (GitConstants.FILE.equals(file.getFileOrDirectory())) {
-				createFile(file);
+				fileHelper.createFile(file, relativeRootDir);
 			} else {
-				createDirecory(file);
+				fileHelper.createDirecory(file, relativeRootDir);
 				downloadRepositoryFiles(userName, password,
-						file.getFileHtmlPath());
+						file.getFileHtmlPath(), relativeRootDir);
 			}
 		}
 	}
-
-	public void createFile(RepositoryFile file) {
-		fileHelper.createFile(file);
-	}
-
-	public void createDirecory(RepositoryFile file) {
-		fileHelper.createDirecory(file);
-	}
-
 
 }
